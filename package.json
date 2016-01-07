@@ -1,0 +1,26 @@
+{
+  "name": "mongodb_university",
+  "version": "1.0.0",
+  "description": "mongodb trainning",
+  "main": "server.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/blackendstudios/mongodb_university.git"
+  },
+  "keywords": [
+    "mongodb"
+  ],
+  "author": "blackend",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/blackendstudios/mongodb_university/issues"
+  },
+  "homepage": "https://github.com/blackendstudios/mongodb_university#readme",
+  "devDependencies": {
+    "express": "^4.13.3",
+    "mongodb": "^2.1.3"
+  }
+}
