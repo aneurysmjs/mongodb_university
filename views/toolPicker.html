@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>MongoDB</title>
+</head>
+<body>
+
+<form action="/tools" method="POST">
+   {% for tool in tools%}
+      <input type="radio" name="tool" value="{{tool}}">{{tool}}
+   {%endfor%}
+   <input type="submit" value="submit">
+</form>
+
+</body>
+</html>

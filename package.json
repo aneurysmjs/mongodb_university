@@ -20,6 +20,8 @@
   },
   "homepage": "https://github.com/blackendstudios/mongodb_university#readme",
   "devDependencies": {
+    "body-parser": "^1.14.2",
+    "connect": "^3.4.0",
     "consolidate": "^0.13.1",
     "express": "^4.13.3",
     "jade": "^1.11.0",
