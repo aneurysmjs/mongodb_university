@@ -21,6 +21,13 @@ MongoClient.connect('mongodb://localhost:27017/olgah', function (error, db) {
       });
    });
 
+   app.get('/:name', function (req, res, next) {
+      var name = req.params.name,
+          var1 = req.query.var1,
+          var2 = req.query.var2;
+      res.render('name', {name: name, var1: var1, var2: var2});
+   });
+
    // guarantees that any routes not handled by our application will be handle by this callback
    app.use(function (req, res) {
       res.sendStatus(404);
