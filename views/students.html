@@ -1,0 +1,8 @@
+<h1>Students</h1>
+
+{% for student in students %}
+   <h3><span>{{student.name}} {{student.last_name}}</span></h3>
+{% else %}
+   <h3>No students found</h3>
+{% endfor %}
+
