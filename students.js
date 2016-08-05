@@ -63,7 +63,7 @@ MongoClient.connect('mongodb://localhost:27017/olgah', function (error, db) {
 
    var server = app.listen(3001, function () {
       var port = server.address().port;
-      utils.log('listening on port %', port)
+      utils.log('listening on port %s', port)
    });
 
 });
