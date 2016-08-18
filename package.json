@@ -22,6 +22,7 @@
   "homepage": "https://github.com/blackendstudios/mongodb_university#readme",
   "devDependencies": {
     "body-parser": "1.14.2",
+    "command-line-args": "2.1.4",
     "commitizen": "2.8.6",
     "connect": "3.4.0",
     "consolidate": "0.13.1",
