@@ -4,30 +4,42 @@ var MongoClient = require('mongodb').MongoClient,
 
 var options = commandLineOptions();
 
-
 MongoClient.connect('mongodb://localhost:27017/crunchbase', function (err, db) {
 
    assert.equal(err, null);
    console.log("Successfully connected to MongoDB.");
 
    var query = queryDocument(options);
-   var projection = {"_id": 0,
-      "name": 1,
-      "offices.country_code": 1,
-      "ipo.valuation_amount": 1};
 
-   var cursor = db.collection('companies').find(query, projection);
+   var projection = {
+      "_id": 0,
+      "name": 1,
+      "founded_year": 1,
+      "number_of_employees": 1
+   };
+
+   var cursor = db.collection('companies').find(query);
+
+   cursor.project(projection);
+   /*
+      the order for the doesn't matter, Mongodb will always 'sort' first, 'skip' second' and then 'limit'
+    */
+   cursor.limit(options.limit);
+   cursor.skip(options.skip);
+   cursor.sort([["founded_year", 1], ["number_of_employees", -1]]);
+
    var numMatches = 0;
 
    cursor.forEach(
       function (doc) {
          numMatches = numMatches + 1;
-         console.log( doc );
+         console.log(doc.name + "\n\tfounded " + doc.founded_year +
+            "\n\t" + doc.number_of_employees + " employees");
       },
       function (err) {
          assert.equal(err, null);
          console.log("Our query was:" + JSON.stringify(query));
-         console.log("Matching documents: " + numMatches);
+         console.log("Documents displayed: " + numMatches);
          return db.close();
       }
    );
@@ -50,18 +62,6 @@ function queryDocument(options) {
       query.number_of_employees = { "$gte": options.employees };
    }
 
-   if ("ipo" in options) {
-      if (options.ipo == "yes") {
-         query["ipo.valuation_amount"] = {"$exists": true, "$ne": null};
-      } else if (options.ipo == "no") {
-         query["ipo.valuation_amount"] = null;
-      }
-   }
-
-   if ("country" in options) {
-      query["offices.country_code"] = options.country;
-   }
-
    return query;
 
 }
@@ -73,8 +73,8 @@ function commandLineOptions() {
       { name: "firstYear", alias: "f", type: Number },
       { name: "lastYear", alias: "l", type: Number },
       { name: "employees", alias: "e", type: Number },
-      { name: "ipo", alias: "i", type: String },
-      { name: "country", alias: "c", type: String }
+      { name: "skip", type: Number, defaultValue: 0 }, // assign default value without an alias, so the user has to type the whole word
+      { name: "limit", type: Number, defaultValue: 20000 }
    ]);
 
    var options = cli.parse();
