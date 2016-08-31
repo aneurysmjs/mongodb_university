@@ -1,4 +1,4 @@
-var MongoClient = require('mongodb').MongoClient,
+ var MongoClient = require('mongodb').MongoClient,
    commandLineArgs = require('command-line-args'),
    assert = require('assert');
 
